@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'dummy_data.dart';
+import 'category_item.dart';
+
 
 class CatagoriesScreeen extends StatelessWidget {
-  const CatagoriesScreeen({Key? key}) : super(key: key);
+  // const CatagoriesScreeen({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
+    return  Scaffold(
+      appBar: AppBar(title: Text('Deli Meals'), ),
+      body: GridView(
+         children:DUMMY_CATEGORIES.map((catData) {
+        return CategoryItem(catData.title,catData.color);
+      }).toList(),
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 3 / 2,
           crossAxisSpacing: 20,
           mainAxisExtent: 20),
-      children: <Widget>[],
+   
+    ),
     );
   }
 }
