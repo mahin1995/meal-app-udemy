@@ -6,8 +6,11 @@ class CategoryMealsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child:Text("The Meal screan")
-    );
+    return SafeArea(child: Scaffold(
+      appBar: AppBar(title: Text('The Recipes'),),
+      body: Center(
+        child:Text("The Meal screan")
+      ),
+    ));
   }
 }
