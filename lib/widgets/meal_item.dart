@@ -15,7 +15,9 @@ class MealItem extends StatelessWidget {
       required this.duration,
       required this.imageUrl});
 
-  void selectMeal() {}
+  void selectMeal() {
+    print('hello');
+  }
 
   @override
   Widget build(BuildContext context) {
