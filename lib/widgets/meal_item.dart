@@ -10,63 +10,71 @@ class MealItem extends StatelessWidget {
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function removeItem;
   MealItem(
       {required this.id,
-        required this.title,
+      required this.title,
       required this.affordability,
       required this.complexity,
       required this.duration,
-      required this.imageUrl});
+      required this.imageUrl,
+      required this.removeItem});
 
-String get  complexityText{
-  switch (complexity){
-    case Complexity.Simple:
-    return 'Simple';
-    // ignore: dead_code
-    break;
-    case Complexity.Challenging:
-    return 'Challenging';
-    // ignore: dead_code
-    break;
-    case Complexity.Hard:
-    return 'Hard';
-    // ignore: dead_code
-    break;
-    default:
-    return "Unkown";
+  String get complexityText {
+    switch (complexity) {
+      case Complexity.Simple:
+        return 'Simple';
+        // ignore: dead_code
+        break;
+      case Complexity.Challenging:
+        return 'Challenging';
+        // ignore: dead_code
+        break;
+      case Complexity.Hard:
+        return 'Hard';
+        // ignore: dead_code
+        break;
+      default:
+        return "Unkown";
+    }
   }
-}
 
-String get  affordabilityText{
-  switch (affordability){
-    case Affordability.Affordable:
-    return 'Affordable';
-    // ignore: dead_code
-    break;
-    case Affordability.Luxurious:
-    return 'Luxurious';
-    // ignore: dead_code
-    break;
-    case Affordability.Pricey:
-    return 'Pricey';
-    // ignore: dead_code
-    break;
-    default:
-    return "Unkown";
+  String get affordabilityText {
+    switch (affordability) {
+      case Affordability.Affordable:
+        return 'Affordable';
+        // ignore: dead_code
+        break;
+      case Affordability.Luxurious:
+        return 'Luxurious';
+        // ignore: dead_code
+        break;
+      case Affordability.Pricey:
+        return 'Pricey';
+        // ignore: dead_code
+        break;
+      default:
+        return "Unkown";
+    }
   }
-}
-
-
 
   void selectMeal(BuildContext ctx) {
-        Navigator.of(ctx).pushNamed(MealDetailScreen.routeName,arguments:id);
-
+    Navigator.of(ctx)
+        .pushNamed(
+      MealDetailScreen.routeName,
+      arguments: id,
+    )
+        .then((value) {
+      if (value != null) {
+        removeItem(value);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>selectMeal(context),
+      onTap: () => selectMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 4,
@@ -119,10 +127,10 @@ String get  affordabilityText{
                   Row(
                     children: [Icon(Icons.schedule), Text('$duration min')],
                   ),
-                   Row(
+                  Row(
                     children: [Icon(Icons.work), Text(complexityText)],
                   ),
-                    Row(
+                  Row(
                     children: [Icon(Icons.attach_money), Text(affordabilityText)],
                   ),
                 ],
