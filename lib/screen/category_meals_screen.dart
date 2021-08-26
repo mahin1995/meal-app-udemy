@@ -11,16 +11,22 @@ class CategoryMealsScreen extends StatefulWidget {
 }
 
 class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
-  late String categoryTitle;
+
+   String? categoryTitle;
   late List<Meal> displayedMeals;
+  var _lodedInitData=false;
   @override
   void didChangeDependencies() {
-    final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+      if( !_lodedInitData ){
+  final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
     final categoryId = routeArgs['id'];
-    final categoryTitle = routeArgs['title'];
-    final displayedMeals = DUMMY_MEALS.where((meal) {
+    categoryTitle = routeArgs['title'];
+    displayedMeals = DUMMY_MEALS.where((meal) {
       return meal.categories.contains(categoryId);
     }).toList();
+    _lodedInitData=true;
+  }
+  
     super.didChangeDependencies();
   }
 
@@ -36,7 +42,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text(categoryTitle!),
+        title: Text("${categoryTitle}"),
       ),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
