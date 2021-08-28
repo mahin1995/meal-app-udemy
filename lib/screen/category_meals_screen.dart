@@ -5,28 +5,30 @@ import '../widgets/meal_item.dart';
 
 class CategoryMealsScreen extends StatefulWidget {
   static const routeName = '/category-meals';
+  final List<Meal> availableMeals;
+
+  CategoryMealsScreen(this.availableMeals);
 
   @override
   _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
 }
 
 class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
-
-   String? categoryTitle;
+  String? categoryTitle;
   late List<Meal> displayedMeals;
-  var _lodedInitData=false;
+  var _lodedInitData = false;
   @override
   void didChangeDependencies() {
-      if( !_lodedInitData ){
-  final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    final categoryId = routeArgs['id'];
-    categoryTitle = routeArgs['title'];
-    displayedMeals = DUMMY_MEALS.where((meal) {
-      return meal.categories.contains(categoryId);
-    }).toList();
-    _lodedInitData=true;
-  }
-  
+    if (!_lodedInitData) {
+      final routeArgs = ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+      final categoryId = routeArgs['id'];
+      categoryTitle = routeArgs['title'];
+      displayedMeals = widget.availableMeals.where((meal) {
+        return meal.categories.contains(categoryId);
+      }).toList();
+      _lodedInitData = true;
+    }
+
     super.didChangeDependencies();
   }
 
@@ -38,7 +40,6 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
